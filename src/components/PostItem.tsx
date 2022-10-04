@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import MyButton from './UI/Button/MyButton';
 
 export type Post = {
     id: number,
@@ -9,9 +10,10 @@ export type Post = {
 export interface PostItemProps {
     post: Post;
     number: number;
+    remove: (id: number) => void;
 }
 
-const PostItem: FC<PostItemProps> = ({post: {title, body}, number}) => {
+const PostItem: FC<PostItemProps> = ({post: {title, body, id}, number, remove}) => {
     return (
         <div className="post">
             <div className="post__content">
@@ -23,7 +25,7 @@ const PostItem: FC<PostItemProps> = ({post: {title, body}, number}) => {
                 </div>
             </div>
             <div className="post__btns">
-                <button>Delete</button>
+                <MyButton name='Delete' onClick={() => remove(id)} />
             </div>
         </div>
     );

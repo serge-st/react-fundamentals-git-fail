@@ -1,8 +1,8 @@
-import { useState } from "react";
-import PostList from "./components/PostList";
-import MyButton from "./components/UI/Button/MyButton";
-import MyInput from "./components/UI/Input/MyInput";
 import './styles/App.css';
+import { useState } from "react";
+import PostForm from "./components/PostForm";
+import { Post } from "./components/PostItem";
+import PostList from "./components/PostList";
 
 const App = () => {
   const [posts, setPosts] = useState([
@@ -11,34 +11,26 @@ const App = () => {
     { id: 3, title: 'HTML', body: 'No frontend without it' },
   ]);
 
-  const [post, setPost] = useState({title: '', body: ''})
+  const createPost = (newPost: Post) => {
+    setPosts([...posts, newPost]);
+  }
 
-  const addNewPost = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setPosts([...posts, {...post, id: Date.now()}]);
-    setPost({title: '', body: ''});
+  const removePost = (id: number) => {
+    setPosts([...posts.filter(post => post.id !== id)]);
   }
 
   return (
     <div className="App">
-      <form>
-        <MyInput
-          value={post.title}
-          onChange={e => setPost({...post, title: e.target.value})}
-          type="text"
-          placeholder="Post Title"
-        />
-        <MyInput
-          value={post.body}
-          onChange={e => setPost({...post, body: e.target.value})}
-          type="text"
-          placeholder="Post Description"
-        />
-        <MyButton onClick={addNewPost} name='Create Post'/>
-      </form>
+      <PostForm create={createPost}/>
 
-
-      <PostList posts={posts} title="Post About JS and Frontend"/>
+      {posts.length
+        ?
+        <PostList remove={removePost} posts={posts} title="Post About JS and Frontend"/>
+        :
+        <h1 style={{textAlign: 'center'}}>
+          No Posts Found!
+        </h1>
+      }
       
       {/* <br />
       <PostItem post={posts[1]}/>
