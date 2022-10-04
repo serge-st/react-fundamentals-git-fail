@@ -1,13 +1,13 @@
-import { FC, HTMLAttributes } from 'react';
+import { FC } from 'react';
 import classes from './MyButton.module.css';
 
-interface MyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MyButtonProps extends React.ComponentPropsWithoutRef<"button"> {
     name: string;
 }
 
-const MyButton: FC<MyButtonProps> = ({name, ...htmlAttributes}) => {
+const MyButton: FC<MyButtonProps> = ({name, ...attributes}) => {
     return (
-        <button {...htmlAttributes} className={classes.myBtn}>
+        <button {...attributes} className={classes.myBtn}>
             {name}
         </button>
     );

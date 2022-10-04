@@ -8,14 +8,15 @@ export type Post = {
 
 export interface PostItemProps {
     post: Post;
+    number: number;
 }
 
-const PostItem: FC<PostItemProps> = ({post: {id, title, body}}) => {
+const PostItem: FC<PostItemProps> = ({post: {title, body}, number}) => {
     return (
         <div className="post">
             <div className="post__content">
                 <strong>
-                    {id}. {title}
+                    {number}. {title}
                 </strong>
                 <div>
                     {body}
