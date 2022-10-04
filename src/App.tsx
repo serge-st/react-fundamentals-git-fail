@@ -20,7 +20,7 @@ const App = () => {
       <form>
         <input type="text" placeholder="Post Title"></input>
         <input type="text" placeholder="Post Description"></input>
-        <MyButton />
+        <MyButton  name='Create Post'/>
       </form>
 
 

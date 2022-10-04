@@ -1,9 +1,14 @@
+import { FC, HTMLAttributes } from 'react';
 import classes from './MyButton.module.css';
 
-const MyButton = () => {
+interface MyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    name: string;
+}
+
+const MyButton: FC<MyButtonProps> = ({name, ...htmlAttributes}) => {
     return (
-        <button className={classes.myBtn}>
-            test
+        <button {...htmlAttributes} className={classes.myBtn}>
+            {name}
         </button>
     );
 };
