@@ -2,7 +2,7 @@ import { FC } from 'react';
 import MyInput from './UI/Input/MyInput';
 import MySelect from './UI/Select/MySelect';
 
-type FilterOptions = {
+export type FilterOptions = {
     sort: string;
     query: string;
 }

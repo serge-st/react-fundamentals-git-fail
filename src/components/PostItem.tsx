@@ -3,8 +3,8 @@ import MyButton from './UI/Button/MyButton';
 
 export type Post = {
     id: number,
-    title: string,
-    body: string,
+    title: string | '',
+    body: string | '',
 }
 
 export interface PostItemProps {

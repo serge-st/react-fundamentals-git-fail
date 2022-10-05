@@ -3,11 +3,10 @@ import { useMemo, useState } from "react";
 import PostForm from "./components/PostForm";
 import { Post } from "./components/PostItem";
 import PostList from "./components/PostList";
-import MySelect from './components/UI/Select/MySelect';
-import MyInput from './components/UI/Input/MyInput';
 import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/Modal/MyModal';
 import MyButton from './components/UI/Button/MyButton';
+import { SortOptions, usePosts } from './hooks/usePosts';
 
 const App = () => {
   const [posts, setPosts] = useState([
@@ -18,19 +17,7 @@ const App = () => {
 
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
-
-  type SortOptions = Omit<Post, "id">
-  const sortedPosts = useMemo(() => {
-    if(filter.sort) {
-      return [...posts].sort((a: SortOptions, b: SortOptions) => a[filter.sort as keyof SortOptions].localeCompare(b[filter.sort as keyof SortOptions]))
-    } else {
-      return posts;
-    }
-  }, [filter.sort, posts]);
-
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
-  }, [filter.query, sortedPosts]);
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort as keyof SortOptions, filter.query);
 
   const createPost = (newPost: Post) => {
     setPosts([...posts, newPost]);
@@ -56,15 +43,6 @@ const App = () => {
       />
 
       <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
-
-      {/* {sortedAndSearchedPosts.length
-        ?
-        <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
-        :
-        <h1 style={{textAlign: 'center'}}>
-          No Posts Found!
-        </h1>
-      } */}
     </div>
   );
 }
