@@ -1,9 +1,10 @@
 import './styles/App.css';
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import PostForm from "./components/PostForm";
 import { Post } from "./components/PostItem";
 import PostList from "./components/PostList";
 import MySelect from './components/UI/Select/MySelect';
+import MyInput from './components/UI/Input/MyInput';
 
 const App = () => {
   const [posts, setPosts] = useState([
@@ -13,6 +14,20 @@ const App = () => {
   ]);
 
   const [selectedSort, setSelectedSort] = useState('');
+  const [searchQuerry, setSearchQuerry] = useState('');
+
+  type SortOptions = Omit<Post, "id">
+  const sortedPosts = useMemo(() => {
+    if(selectedSort) {
+      return [...posts].sort((a: SortOptions, b: SortOptions) => a[selectedSort as keyof SortOptions].localeCompare(b[selectedSort as keyof SortOptions]))
+    } else {
+      return posts;
+    }
+  }, [selectedSort, posts]);
+
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuerry.toLowerCase()))
+  }, [searchQuerry, sortedPosts]);
 
   const createPost = (newPost: Post) => {
     setPosts([...posts, newPost]);
@@ -22,10 +37,9 @@ const App = () => {
     setPosts([...posts.filter(post => post.id !== id)]);
   }
 
-  type SortOptions = Omit<Post, "id">
   const sortPosts = (sort: string) => {
     setSelectedSort(sort);
-    setPosts([...posts].sort((a: SortOptions, b: SortOptions) => a[sort as keyof SortOptions].localeCompare(b[sort as keyof SortOptions])))
+    setPosts(sortedPosts);
   }
 
   return (
@@ -34,19 +48,28 @@ const App = () => {
 
       <hr style={{margin: '15px 0'}}/>
 
-      <MySelect
-        value={selectedSort}
-        onChange={sortPosts}
-        defaultValue='Sort By'
-        options={[
-          {value: 'title', name: 'By Name'},
-          {value: 'body', name: 'By Description'}
-        ]}
-      />
+      <div>
+        <MyInput
+          value={searchQuerry}
+          onChange={e => setSearchQuerry(e.target.value)}
+          placeholder='Search...'
+        />
 
-      {posts.length
+        <MySelect
+          value={selectedSort}
+          onChange={sortPosts}
+          defaultValue='Sort By'
+          options={[
+            {value: 'title', name: 'By Name'},
+            {value: 'body', name: 'By Description'}
+          ]}
+        />
+      </div>
+
+
+      {sortedAndSearchedPosts.length
         ?
-        <PostList remove={removePost} posts={posts} title="Post About JS and Frontend"/>
+        <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
         :
         <h1 style={{textAlign: 'center'}}>
           No Posts Found!

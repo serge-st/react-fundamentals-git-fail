@@ -13,7 +13,6 @@ interface MySelectProps {
 }
 
 const MySelect: FC<MySelectProps> = ({options, defaultValue, value, onChange}) => {
-    console.log(options);
     return (
         <select
             value={value}
