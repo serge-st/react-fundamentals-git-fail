@@ -22,11 +22,11 @@
     align-items: center;
 }
 
-.post-enter {
+.post-enter, .post-appear {
     opacity: 0;
     transform: translateX(-350px);
 }
-.post-enter-active {
+.post-enter-active, .post-appear-active {
     opacity: 1;
     transform: translateX(0px);
     transition: all 500ms ease-in;
@@ -39,3 +39,21 @@
     transform: translateX(-350px);
     transition: all 500ms ease-in;
 }
+
+.post_title-appear {
+    opacity: 0;
+}
+
+.post_title-appear-active {
+    opacity: 1;
+    transition: all 500ms ease-in;
+}
+
+/* .post_title-exit {
+    opacity: 1;
+}
+
+.post_title-exit-active {
+    opacity: 0;
+    transition: all 500ms ease-in;
+} */
