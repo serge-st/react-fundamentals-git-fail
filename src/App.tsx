@@ -1,5 +1,5 @@
 import './styles/App.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostForm from "./components/PostForm";
 import { Post } from "./components/PostItem";
 import PostList from "./components/PostList";
@@ -7,7 +7,8 @@ import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/Modal/MyModal';
 import MyButton from './components/UI/Button/MyButton';
 import { SortOptions, usePosts } from './hooks/usePosts';
-import axios from 'axios';
+import PostService from './API/PostService';
+import Loader from './components/UI/Loader/Loader';
 
 const App = () => {
   const [posts, setPosts] = useState<Post[]>([
@@ -15,16 +16,24 @@ const App = () => {
     // { id: 2, title: 'TypeScript', body: 'TypeScript - more powerful JavaScript' },
     // { id: 3, title: 'HTML', body: 'No frontend without it' },
   ]);
-
-  async function fetchPosts() {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    setPosts(response.data);
-  }
-
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort as keyof SortOptions, filter.query);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
 
+  async function fetchPosts() {
+    setIsPostsLoading(true);
+    setTimeout(async () => {
+      const posts = await PostService.getAll();
+      setPosts(posts);
+      setIsPostsLoading(false);
+    }, 1000);
+  }
+  
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+  
   const createPost = (newPost: Post) => {
     setPosts([...posts, newPost]);
     setModal(false);
@@ -36,7 +45,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <button onClick={fetchPosts}>Get Posts</button>
       <MyButton style={{marginTop: '30px'}} name='Create Post' onClick={() => setModal(true)}/>
       <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost}/>
@@ -48,8 +56,10 @@ const App = () => {
         filter={filter}
         setFilter={setFilter}
       />
-
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
+      {isPostsLoading
+        ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}> <Loader /> </div>
+        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
+      }
     </div>
   );
 }
