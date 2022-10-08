@@ -11,7 +11,7 @@ import PostService from './API/PostService';
 import Loader from './components/UI/Loader/Loader';
 import { useFetching } from './hooks/useFetching';
 import { getPageCount } from './utils/pages';
-import { usePagination } from './hooks/usePagination';
+import Pagination from './components/UI/Pagination/Pagination';
 
 const App = () => {
   const [posts, setPosts] = useState<Post[]>([
@@ -70,19 +70,10 @@ const App = () => {
         ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}> <Loader /> </div>
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
       }
-      <div className='page__wrapper'>
-        {usePagination(totalPages).map(p => {
-          return (
-            <span
-              onClick={() => changePage(p)}
-              key={p}
-              className={page === p ? 'page page__selected' : 'page'}
-            >
-              {p}
-            </span>
-          )
-        })}
-      </div>
+      {isPostsLoading
+        ? null
+        : <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
+      }
     </div>
   );
 }
