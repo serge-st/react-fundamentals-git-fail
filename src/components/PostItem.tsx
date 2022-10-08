@@ -18,7 +18,7 @@ const PostItem: FC<PostItemProps> = ({post: {title, body, id}, number, remove}) 
         <div className="post">
             <div className="post__content">
                 <strong>
-                    {number}. {title}
+                    {id}. {title}
                 </strong>
                 <div>
                     {body}

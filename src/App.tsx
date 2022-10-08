@@ -35,15 +35,19 @@ const App = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
-  const createPost = (newPost: Post) => {
+  const createPost = (newPost: Post): void => {
     setPosts([...posts, newPost]);
     setModal(false);
   }
 
-  const removePost = (id: number) => {
+  const removePost = (id: number): void => {
     setPosts([...posts.filter(post => post.id !== id)]);
+  }
+
+  const changePage = (page: number): void => {
+    setPage(page);
   }
 
   return (
@@ -70,7 +74,7 @@ const App = () => {
         {usePagination(totalPages).map(p => {
           return (
             <span
-              onClick={() => setPage(p)}
+              onClick={() => changePage(p)}
               key={p}
               className={page === p ? 'page page__selected' : 'page'}
             >
