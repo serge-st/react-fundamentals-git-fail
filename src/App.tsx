@@ -10,6 +10,8 @@ import { SortOptions, usePosts } from './hooks/usePosts';
 import PostService from './API/PostService';
 import Loader from './components/UI/Loader/Loader';
 import { useFetching } from './hooks/useFetching';
+import { getPageCount } from './utils/pages';
+import { usePagination } from './hooks/usePagination';
 
 const App = () => {
   const [posts, setPosts] = useState<Post[]>([
@@ -19,16 +21,22 @@ const App = () => {
   ]);
   const [filter, setFilter] = useState({sort: '', query: ''});
   const [modal, setModal] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort as keyof SortOptions, filter.query);
+
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
-    const posts = await PostService.getAll();
-    setPosts(posts);
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data);
+    const totalCount = Number(response.headers['x-total-count']);
+    setTotalPages(getPageCount(totalCount, limit));
   });
-  
+
   useEffect(() => {
     fetchPosts();
   }, []);
-  
+
   const createPost = (newPost: Post) => {
     setPosts([...posts, newPost]);
     setModal(false);
@@ -58,6 +66,19 @@ const App = () => {
         ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}> <Loader /> </div>
         : <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
       }
+      <div className='page__wrapper'>
+        {usePagination(totalPages).map(p => {
+          return (
+            <span
+              onClick={() => setPage(p)}
+              key={p}
+              className={page === p ? 'page page__selected' : 'page'}
+            >
+              {p}
+            </span>
+          )
+        })}
+      </div>
     </div>
   );
 }
