@@ -69,4 +69,8 @@ export default class PostService {
     static async getById(id: string) {
         return await axios.get(`${this.baseURL}/posts/${id}`);
     }
+
+    static async getCommentsByPostId(id: string) {
+        return await axios.get(`${this.baseURL}/posts/${id}/comments`);
+    }
 }
