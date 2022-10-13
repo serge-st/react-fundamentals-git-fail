@@ -36,6 +36,14 @@
     align-items: center;
 }
 
+.post__btns {
+    display: flex;
+}
+
+.post__btns > button {
+    margin: 0 4px;
+}
+
 .post-enter, .post-appear {
     opacity: 0;
     transform: translateX(-350px);

@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import MyButton from './UI/Button/MyButton';
+import { useHistory } from 'react-router-dom'; 
 
 export type Post = {
     id: number,
@@ -13,7 +14,9 @@ export interface PostItemProps {
     remove: (id: number) => void;
 }
 
-const PostItem: FC<PostItemProps> = ({post: {title, body, id}, number, remove}) => {
+const PostItem: FC<PostItemProps> = ({post: {title, body, id}, remove}) => {
+    const history = useHistory();
+
     return (
         <div className="post">
             <div className="post__content">
@@ -25,6 +28,7 @@ const PostItem: FC<PostItemProps> = ({post: {title, body, id}, number, remove}) 
                 </div>
             </div>
             <div className="post__btns">
+                <MyButton name='Open' onClick={() => history.push(`/posts/${id}`)} />
                 <MyButton name='Delete' onClick={() => remove(id)} />
             </div>
         </div>

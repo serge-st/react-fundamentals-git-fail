@@ -2,11 +2,12 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { cache } from './cacheHandler';
 
 export default class PostService {
+    private static baseURL = 'https://jsonplaceholder.typicode.com';
+
     private static responseHandler(response: AxiosResponse<any>): AxiosResponse<any> {
         if (response.config.method === 'GET' || 'get') {
             if (response.config.url && response.config.params) {
                 console.log('storing in cache');
-                console.log(response);
                 const key = response.config.url + Object
                     .entries(response.config.params)
                     .map( param => param.join('=')).join('&');
@@ -49,7 +50,7 @@ export default class PostService {
 
     static async getAll(limit = 10, page = 1) {
         const client = axios.create({
-            baseURL: 'https://jsonplaceholder.typicode.com'
+            baseURL: this.baseURL,
         });
 
         client.interceptors.request.use((request) => this.requestHandler(request));
@@ -63,5 +64,9 @@ export default class PostService {
                 _page: page,
             }
         });
+    }
+
+    static async getById(id: string) {
+        return await axios.get(`${this.baseURL}/posts/${id}`);
     }
 }
