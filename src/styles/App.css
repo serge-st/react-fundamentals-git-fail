@@ -38,10 +38,7 @@
 
 .post__btns {
     display: flex;
-}
-
-.post__btns > button {
-    margin: 0 4px;
+    gap: 6px;
 }
 
 .post-enter, .post-appear {
