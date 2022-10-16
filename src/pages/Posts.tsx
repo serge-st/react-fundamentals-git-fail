@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Post } from '../components/PostItem';
 import PostService from '../API/PostService';
 import PostFilter from '../components/PostFilter';
@@ -11,6 +11,8 @@ import Pagination from '../components/UI/Pagination/Pagination';
 import { useFetching } from '../hooks/useFetching';
 import { usePosts, SortOptions } from '../hooks/usePosts';
 import { getPageCount } from '../utils/pages';
+import { useObserver } from "../hooks/useObserver";
+import MySelect from "../components/UI/Select/MySelect";
 
 const Posts = () => {
   const [posts, setPosts] = useState<Post[]>([
@@ -24,17 +26,22 @@ const Posts = () => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort as keyof SortOptions, filter.query);
+  const lastElement = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
     const response = await PostService.getAll(limit, page);
-    setPosts(response.data);
+    setPosts([...posts, ...response.data]);
     const totalCount = Number(response.headers['x-total-count']);
     setTotalPages(getPageCount(totalCount, limit));
   });
 
+  useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+    setPage(page + 1);
+  });
+
   useEffect(() => {
     fetchPosts();
-  }, [page]);
+  }, [page, limit]);
   
   const createPost = (newPost: Post): void => {
     setPosts([...posts, newPost]);
@@ -62,17 +69,31 @@ const Posts = () => {
         filter={filter}
         setFilter={setFilter}
       />
+      <MySelect 
+        value={String(limit)}
+        onChange={value => setLimit(Number(value))}
+        defaultValue="The amount of posts per page"
+        options={[
+          {value: '5', name: '5'},
+          {value: '10', name: '10'},
+          {value: '25', name: '25'},
+          {value: '-1', name: 'Show All'},
+        ]}
+      />
       {postError &&
         <h1 style={{textAlign: 'center'}}>An Error Occurred {postError}</h1>
       }
-      {isPostsLoading
-        ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}> <Loader /> </div>
-        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
+      
+      <div ref={lastElement} className='infinite_scroll'></div>
+      
+      {isPostsLoading &&
+        <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}> <Loader /> </div>
       }
-      {isPostsLoading
+      {/* {isPostsLoading
         ? null
         : <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
-      }
+      } */}
     </div>
   );
 }
