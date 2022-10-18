@@ -15,9 +15,9 @@ import { useObserver } from '../hooks/useObserver'
 import Select from '../components/UI/Select/Select'
 
 const Posts = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [filter, setFilter] = useState<FilterOptions>({ sort: '', query: '' });
-  const [modal, setModal] = useState<boolean>(false);
+  const [posts, setPosts] = useState<Post[]>([])
+  const [filter, setFilter] = useState<FilterOptions>({ sort: '', query: '' })
+  const [modal, setModal] = useState<boolean>(false)
   const [totalPages, setTotalPages] = useState(0)
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)

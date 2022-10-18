@@ -12,9 +12,9 @@ export interface Post {
 }
 
 export interface PostItemProps {
-  post: IPost;
-  number: number;
-  remove: (id: number) => void;
+  post: IPost
+  number: number
+  remove: (id: number) => void
 }
 
 const PostItem: FC<PostItemProps> = ({ post: { title, body, id }, remove }) => {

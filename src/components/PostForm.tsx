@@ -15,8 +15,7 @@ const PostForm: FC<PostFormProps> = ({ create }) => {
     e.preventDefault()
     const newPost: IPost = {
       ...post,
-      id: Date.now(),
-      userId: Math.ceil(Math.random() * 1000),
+      id: Date.now()
     }
     create(newPost)
     setPost({ title: '', body: '' })

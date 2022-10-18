@@ -28,7 +28,7 @@ const PostFilter: FC<PostFilterProps> = ({ filter, setFilter }) => {
         options={[
           { value: 'title', name: 'By Name' },
           { value: 'body', name: 'By Description' },
-          { value: 'id', name: 'By ID' },
+          { value: 'id', name: 'By ID' }
         ]}
       />
     </div>
