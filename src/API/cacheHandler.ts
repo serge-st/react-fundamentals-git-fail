@@ -7,7 +7,7 @@ interface IsValidResponse {
 const SEPARATOR = '//**//';
 const CACHE_INTERVAL = 0.3 * 60 * 1000;
 
-const store = (key: string, value: string, headers: string) => {
+const store = (key: string, value: string, headers: string): void => {
     const finalValue = `${value}${SEPARATOR}${headers}${SEPARATOR}${Date.now().toString()}`;
     localStorage.setItem(key, finalValue);
 }

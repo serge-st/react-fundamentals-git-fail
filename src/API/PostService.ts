@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { IComment, IPost } from '../types/types';
 import { cache } from './cacheHandler';
 
 export default class PostService {
@@ -21,8 +22,8 @@ export default class PostService {
         return response;
     }
 
-    private static errorHandler(error: any) {
-        if (error.headers.cached === true) {
+    private static errorHandler(error: AxiosResponse<any>) {
+        if (error.headers.cached) {
             console.log('got cached data in response, serving it directly');
             return Promise.resolve(error);
         }
@@ -48,7 +49,7 @@ export default class PostService {
         return request;
     }
 
-    static async getAll(limit = 10, page = 1) {
+    static async getAll(limit = 10, page = 1): Promise<AxiosResponse<IPost[]>> {
         const client = axios.create({
             baseURL: this.baseURL,
         });
@@ -58,7 +59,7 @@ export default class PostService {
             (response) => this.responseHandler(response),
             (error) => this.errorHandler(error),
         );
-        return await client.get('/posts?', {
+        return await client.get<IPost[]>('/posts?', {
             params: {
                 _limit: limit,
                 _page: page,
@@ -66,11 +67,11 @@ export default class PostService {
         });
     }
 
-    static async getById(id: string) {
-        return await axios.get(`${this.baseURL}/posts/${id}`);
+    static async getById(id: string): Promise<AxiosResponse<IPost>> {
+        return await axios.get<IPost>(`${this.baseURL}/posts/${id}`);
     }
 
-    static async getCommentsByPostId(id: string) {
-        return await axios.get(`${this.baseURL}/posts/${id}/comments`);
+    static async getCommentsByPostId(id: string): Promise<AxiosResponse<IComment[]>> {
+        return await axios.get<IComment[]>(`${this.baseURL}/posts/${id}/comments`);;
     }
 }

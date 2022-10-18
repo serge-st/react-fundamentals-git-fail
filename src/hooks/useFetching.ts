@@ -1,17 +1,20 @@
+import axios from "axios";
 import { useState } from "react"
 
-export const useFetching = (callback: () => void): [() => Promise<void>, boolean, string] => {
-    const [isLoading, setIsLoading] = useState(false);
+type FetchingReturn = [() => Promise<void>, boolean, string];
+
+export const useFetching = (callback: () => void): FetchingReturn => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState('');
 
     const fetching = async () => {
         try {
             setIsLoading(true);
             await callback();
-        } catch (e) {
-            if (e instanceof Error) {
-                console.log(e);
-                setError(e.message);
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                console.log(JSON.stringify(err, null, 2))
+                setError(err.message);
             }
         } finally {
             setIsLoading(false);

@@ -4,23 +4,16 @@ import PostService from '../API/PostService';
 import { Post } from '../components/PostItem';
 import Loader from '../components/UI/Loader/Loader';
 import { useFetching } from '../hooks/useFetching';
+import { IComment } from '../types/types';
 
 interface PostParams {
     id: string;
 }
 
-interface Comment {
-    postId: string;
-    id: number;
-    name?: string;
-    email?: string;
-    body?: string;
-}
-
 const PostIdPage = () => {
     const { id } = useParams<PostParams>();
-    const [post, setPost] = useState<Post>({id: 0, title: '', body: ''});
-    const [comments, setComments] = useState<Comment[]>([]);
+    const [post, setPost] = useState<Post | null>(null);
+    const [comments, setComments] = useState<IComment[] | []>([]);
     const [fetchPostById, isLoading, postError] = useFetching(async () => {
         const response = await PostService.getById(id);
         setPost(response.data);
@@ -40,7 +33,7 @@ const PostIdPage = () => {
             <h1>You Post With ID: {id}</h1>
             {isLoading
                 ? <Loader />
-                : <div>{post.id}. {post.title}</div>
+                : <div>{post?.id}. {post?.title}</div>
             }
             <h2>Comments</h2>
             {isCommentsLoading

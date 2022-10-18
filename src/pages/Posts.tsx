@@ -90,10 +90,10 @@ const Posts = () => {
       {isPostsLoading &&
         <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}> <Loader /> </div>
       }
-      {/* {isPostsLoading
+      {isPostsLoading
         ? null
         : <Pagination page={page} changePage={changePage} totalPages={totalPages}/>
-      } */}
+      }
     </div>
   );
 }
