@@ -1,3 +1,4 @@
+import cl from './Pagination.module.css';
 import { FC } from "react";
 import { usePagination } from "../../../hooks/usePagination";
 
@@ -9,13 +10,13 @@ interface PaginationProps {
 
 const Pagination: FC<PaginationProps> = ({totalPages, page, changePage}) => {
     return (
-        <div className='page__wrapper'>
+        <div className={cl.page__wrapper}>
             {usePagination(totalPages).map(p => {
                 return (
                     <span
                         onClick={() => changePage(p)}
                         key={p}
-                        className={page === p ? 'page page__selected' : 'page'}
+                        className={page === p ? `${cl.page} ${cl.page__selected}` : cl.page}
                     >   
                         {p}
                     </span>

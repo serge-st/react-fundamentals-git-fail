@@ -26,18 +26,19 @@ const Posts = () => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort as keyof SortOptions, filter.query);
-  const lastElement = useRef() as React.MutableRefObject<HTMLDivElement>;
+  // const lastElement = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
     const response = await PostService.getAll(limit, page);
-    setPosts([...posts, ...response.data]);
+    // setPosts([...posts, ...response.data]);
+    setPosts(response.data);
     const totalCount = Number(response.headers['x-total-count']);
     setTotalPages(getPageCount(totalCount, limit));
   });
 
-  useObserver(lastElement, page < totalPages, isPostsLoading, () => {
-    setPage(page + 1);
-  });
+  // useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+  //   setPage(page + 1);
+  // });
 
   useEffect(() => {
     fetchPosts();
@@ -83,9 +84,9 @@ const Posts = () => {
       {postError &&
         <h1 style={{textAlign: 'center'}}>An Error Occurred {postError}</h1>
       }
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Post About JS and Frontend"/>
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts About TS and Frontend"/>
       
-      <div ref={lastElement} className='infinite_scroll'></div>
+      {/* <div ref={lastElement} className='infinite_scroll'></div> */}
       
       {isPostsLoading &&
         <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}> <Loader /> </div>

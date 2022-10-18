@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import cl from './Loader.module.css';
 
-const Loader = () => {
+const Loader: FC = () => {
     return (
         <div className={cl.loader}>
 

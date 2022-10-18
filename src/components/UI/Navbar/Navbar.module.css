@@ -1,0 +1,19 @@
+.navbar {
+    height: 50px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    background: lightgray;
+}
+
+.navbar__links > a {
+    margin-left: 6px;
+    color: teal;
+}
+
+.navbar__links > a:hover {
+    margin-left: 6px;
+    color: #125b63;
+}

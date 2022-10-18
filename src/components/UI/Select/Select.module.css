@@ -1,0 +1,10 @@
+.mySelect {
+    padding: 5px 15px;
+    margin: 5px 0;
+    border: 1px solid teal;
+}
+
+.mySelect:focus-visible {
+    border: 1px solid teal;
+    outline: 1px solid #125b63;
+}

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import cl from './Select.module.css';
 
 type Option = {
     value: string,
@@ -17,6 +18,7 @@ const Select: FC<SelectProps> = ({options, defaultValue, value, onChange}) => {
         <select
             value={value}
             onChange={event => onChange(event.target.value)}
+            className={cl.mySelect}
         >
             <option disabled value="">{defaultValue}</option>
             {options.map(option =>

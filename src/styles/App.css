@@ -14,19 +14,6 @@
     width: 800px;
 }
 
-.navbar {
-    height: 50px;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-    background: lightgray;
-}
-
-.navbar__links {
-    margin-left: auto;
-}
-
 .post {
     display: flex;
     padding: 15px;
@@ -66,23 +53,4 @@
 .post_title-appear-active {
     opacity: 1;
     transition: all 500ms ease-in;
-}
-
-.page__wrapper {
-    margin: 30px;
-    display: flex;
-}
-
-.page {
-    padding: 10px;
-    margin-right: 4px;
-    min-width: 40px;
-    text-align: center;
-    border: 1px solid #008080;
-    cursor: pointer;
-}
-
-.page__selected {
-    border: 2px solid #125b63;
-    font-weight: bold;
 }
