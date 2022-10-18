@@ -1,13 +1,13 @@
 import { FC, ReactNode } from 'react';
-import cl from './MyModal.module.css';
+import cl from './Modal.module.css';
 
-interface MyModalProps {
+interface ModalProps {
     children: ReactNode;
     visible: boolean;
     setVisible: (b: boolean) => void;
 }
 
-const MyModal: FC<MyModalProps> = ({children, visible, setVisible}) => {
+const Modal: FC<ModalProps> = ({children, visible, setVisible}) => {
 
     const rootClasses = [cl.myModal];
     if (visible) {
@@ -23,4 +23,4 @@ const MyModal: FC<MyModalProps> = ({children, visible, setVisible}) => {
     );
 };
 
-export default MyModal;
+export default Modal;
