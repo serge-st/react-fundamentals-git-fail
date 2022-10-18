@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Input from './UI/Input/Input';
-import MySelect from './UI/Select/MySelect';
+import Select from './UI/Select/Select';
 
 export type FilterOptions = {
     sort: string;
@@ -21,7 +21,7 @@ const PostFilter: FC<PostFilterProps> = ({filter, setFilter}) => {
             placeholder='Search...'
             />
 
-            <MySelect
+            <Select
             value={filter.sort}
             onChange={selectedSort => setFilter({...filter, sort: selectedSort})}
             defaultValue='Sort By'

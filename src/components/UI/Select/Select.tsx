@@ -5,14 +5,14 @@ type Option = {
     name: string,
 }
 
-interface MySelectProps {
+interface SelectProps {
     options: Option[];
     defaultValue: string;
     value: string;
     onChange: (x: string) => void;
 }
 
-const MySelect: FC<MySelectProps> = ({options, defaultValue, value, onChange}) => {
+const Select: FC<SelectProps> = ({options, defaultValue, value, onChange}) => {
     return (
         <select
             value={value}
@@ -26,4 +26,4 @@ const MySelect: FC<MySelectProps> = ({options, defaultValue, value, onChange}) =
     );
 };
 
-export default MySelect;
+export default Select;

@@ -12,7 +12,7 @@ import { useFetching } from '../hooks/useFetching';
 import { usePosts, SortOptions } from '../hooks/usePosts';
 import { getPageCount } from '../utils/pages';
 import { useObserver } from "../hooks/useObserver";
-import MySelect from "../components/UI/Select/MySelect";
+import Select from "../components/UI/Select/Select";
 
 const Posts = () => {
   const [posts, setPosts] = useState<Post[]>([
@@ -69,7 +69,7 @@ const Posts = () => {
         filter={filter}
         setFilter={setFilter}
       />
-      <MySelect 
+      <Select 
         value={String(limit)}
         onChange={value => setLimit(Number(value))}
         defaultValue="The amount of posts per page"
