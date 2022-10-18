@@ -1,11 +1,11 @@
-import { createContext, Dispatch, SetStateAction } from "react"
+import { createContext, Dispatch, SetStateAction } from 'react'
 
-type AuthContextType = {
-    isAuthenticated: boolean,
-    setIsAuthenticated: Dispatch<SetStateAction<boolean>>,
-    isLoading: boolean,
+interface AuthContextType {
+  isAuthenticated: boolean
+  setIsAuthenticated: Dispatch<SetStateAction<boolean>>
+  isLoading: boolean
 }
 
-export const AuthCountext = createContext<AuthContextType | null>(null);
+export const AuthCountext = createContext<AuthContextType | null>(null)
 
-export const LOCAL_STORAGE_AUTH_KEY = 'auth';
+export const LOCAL_STORAGE_AUTH_KEY = 'auth'

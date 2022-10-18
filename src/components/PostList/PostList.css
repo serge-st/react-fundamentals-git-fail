@@ -1,0 +1,33 @@
+.post_list > h1 {
+    text-align: center;
+}
+
+.post-enter, .post-appear {
+    opacity: 0;
+    transform: translateX(-350px);
+}
+
+.post-enter-active, .post-appear-active {
+    opacity: 1;
+    transform: translateX(0px);
+    transition: all 500ms ease-in;
+}
+
+.post-exit {
+    opacity: 1;
+}
+
+.post-exit-active {
+    opacity: 0;
+    transform: translateX(-350px);
+    transition: all 500ms ease-in;
+}
+
+.post_title-appear {
+    opacity: 0;
+}
+
+.post_title-appear-active {
+    opacity: 1;
+    transition: all 500ms ease-in;
+}
