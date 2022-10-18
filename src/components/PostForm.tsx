@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { Post } from "./PostItem";
-import MyButton from "./UI/Button/MyButton";
+import Button from "./UI/Button/Button";
 import MyInput from "./UI/Input/MyInput";
 
 interface PostFormProps {
@@ -34,7 +34,7 @@ const PostForm: FC<PostFormProps> = ({create}) => {
                 type="text"
                 placeholder="Post Description"
             />
-            <MyButton onClick={addNewPost} name='Create Post'/>
+            <Button onClick={addNewPost} name='Create Post'/>
         </form>
     );
 };

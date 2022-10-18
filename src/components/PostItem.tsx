@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import MyButton from './UI/Button/MyButton';
+import Button from './UI/Button/Button';
 import { useHistory } from 'react-router-dom'; 
 
 export type Post = {
@@ -28,8 +28,8 @@ const PostItem: FC<PostItemProps> = ({post: {title, body, id}, remove}) => {
                 </div>
             </div>
             <div className="post__btns">
-                <MyButton name='Open' onClick={() => history.push(`/posts/${id}`)} />
-                <MyButton name='Delete' onClick={() => remove(id)} />
+                <Button name='Open' onClick={() => history.push(`/posts/${id}`)} />
+                <Button name='Delete' onClick={() => remove(id)} />
             </div>
         </div>
     );

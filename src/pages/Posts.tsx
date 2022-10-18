@@ -4,7 +4,7 @@ import PostService from '../API/PostService';
 import PostFilter from '../components/PostFilter';
 import PostForm from '../components/PostForm';
 import PostList from '../components/PostList';
-import MyButton from '../components/UI/Button/MyButton';
+import Button from '../components/UI/Button/Button';
 import Loader from '../components/UI/Loader/Loader';
 import MyModal from '../components/UI/Modal/MyModal';
 import Pagination from '../components/UI/Pagination/Pagination';
@@ -58,7 +58,7 @@ const Posts = () => {
 
   return (
     <div className="App">
-      <MyButton style={{marginTop: '30px'}} name='Create Post' onClick={() => setModal(true)}/>
+      <Button style={{marginTop: '30px'}} name='Create Post' onClick={() => setModal(true)}/>
       <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost}/>
       </MyModal>

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MyButton from "../components/UI/Button/MyButton";
+import Button from "../components/UI/Button/Button";
 import MyInput from "../components/UI/Input/MyInput";
 import { AuthCountext, LOCAL_STORAGE_AUTH_KEY } from "../context";
 
@@ -17,7 +17,7 @@ const Login = () => {
             <form onSubmit={e => login(e)}>
                 <MyInput type="text" placeholder="Login"  />
                 <MyInput type="password" placeholder="Password" />
-                <MyButton name="Login" />
+                <Button name="Login" />
             </form>
         </div>
     );
