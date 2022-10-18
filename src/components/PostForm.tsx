@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Post } from "./PostItem";
 import Button from "./UI/Button/Button";
-import MyInput from "./UI/Input/MyInput";
+import Input from "./UI/Input/Input";
 
 interface PostFormProps {
     create: (newPost: Post) => void;
@@ -22,13 +22,13 @@ const PostForm: FC<PostFormProps> = ({create}) => {
     
     return (
         <form>
-            <MyInput
+            <Input
                 value={post.title}
                 onChange={e => setPost({...post, title: e.target.value})}
                 type="text"
                 placeholder="Post Title"
             />
-            <MyInput
+            <Input
                 value={post.body}
                 onChange={e => setPost({...post, body: e.target.value})}
                 type="text"

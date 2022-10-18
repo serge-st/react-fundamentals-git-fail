@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import MyInput from './UI/Input/MyInput';
+import Input from './UI/Input/Input';
 import MySelect from './UI/Select/MySelect';
 
 export type FilterOptions = {
@@ -15,7 +15,7 @@ interface PostFilterProps {
 const PostFilter: FC<PostFilterProps> = ({filter, setFilter}) => {
     return (
         <div>
-            <MyInput
+            <Input
             value={filter.query}
             onChange={e => setFilter({...filter, query: e.target.value})}
             placeholder='Search...'
