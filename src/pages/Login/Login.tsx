@@ -16,14 +16,13 @@ const Login: FC = () => {
 
   return (
     !height
-    ? null
-    :
-      <div
-        className={cl.login}
-        style={{
-          height
-        }}
-      >
+      ? null
+      : <div
+          className={cl.login}
+          style={{
+            height
+          }}
+        >
         <div>
           <h1>Login Page</h1>
           <form onSubmit={(e: FormEvent<HTMLFormElement>) => login(e)}>

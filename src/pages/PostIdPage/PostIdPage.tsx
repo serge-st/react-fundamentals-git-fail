@@ -33,10 +33,9 @@ const PostIdPage: FC = () => {
 
   return (
     <div>
-      {!post || isLoading || isCommentsLoading
+      {(post == null) || isLoading || isCommentsLoading
         ? <Loader />
-        :
-        <div>
+        : <div>
           <h1 className={cl.post__header}>{capitalize(post?.title)}</h1>
           <div className={cl.post__container}>
             <h3>Post ID: {id}</h3>
@@ -46,21 +45,20 @@ const PostIdPage: FC = () => {
           <h3 className={cl.comments__header}>Comments:</h3>
           <div>
             {comments.map(comm =>
-                <div
-                  className={cl.comment}
-                  key={comm.id}
-                >
-                  <h5>User: {comm.email}</h5>
-                  <h5>Comment:</h5>
-                  <p className={cl.comment__body}>
-                    {comm.body}
-                    <hr />
-                  </p>
-                </div>
+              <div
+                className={cl.comment}
+                key={comm.id}
+              >
+                <h5>User: {comm.email}</h5>
+                <h5>Comment:</h5>
+                <p className={cl.comment__body}>
+                  {comm.body}
+                  <hr />
+                </p>
+              </div>
             )}
           </div>
-        </div>
-      }
+        </div>}
     </div>
   )
 }
