@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "heroku-postbuild": "parcel build"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "@types/react-transition-group": "^4.4.5",
     "buffer": "^6.0.3",
     "parcel": "^2.7.0",
+    "postcss-modules": "^4.3.0",
     "process": "^0.11.10",
     "ts-standard": "^12.0.1"
   },
@@ -29,6 +31,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.3.4",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.4.5",
+    "parcel-bundler" : "1.12.5"
   }
 }
