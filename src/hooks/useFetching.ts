@@ -5,7 +5,7 @@ type FetchingReturn = [() => Promise<void>, boolean, string]
 
 export const useFetching = (callback: () => void): FetchingReturn => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('')
 
   const fetching = async () => {
     try {
@@ -13,8 +13,7 @@ export const useFetching = (callback: () => void): FetchingReturn => {
       await callback()
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        console.log(JSON.stringify(err, null, 2))
-        setError(err.message)
+        setError(JSON.stringify(err, null, 2))
       }
     } finally {
       setIsLoading(false)

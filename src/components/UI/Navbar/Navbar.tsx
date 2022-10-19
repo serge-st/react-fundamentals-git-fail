@@ -1,5 +1,5 @@
 import cl from './Navbar.module.css'
-import { FC, useContext } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthCountext, LOCAL_STORAGE_AUTH_KEY } from '../../../context'
 import Button from '../Button/Button'

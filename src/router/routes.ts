@@ -1,13 +1,13 @@
 import { FC } from 'react'
-import About from '../pages/About'
-import Login from '../pages/Login'
+import About from '../pages/About/About'
+import Login from '../pages/Login/Login'
 import PostIdPage from '../pages/PostIdPage'
 import Posts from '../pages/Posts'
 import TestHook from '../pages/TestHook'
 
 interface MyRoute {
   path: string
-  component: FC
+  component: FC<any>
   exact: boolean
 }
 

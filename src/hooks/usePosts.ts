@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
-import { Post } from '../components/PostItem/PostItem'
 import { IPost } from '../types/types'
 
 export type SortOptions = Omit<IPost, 'userId'>
-export const userSortedPosts = (posts: Post[], sort: keyof SortOptions): Post[] => {
+export const userSortedPosts = (posts: IPost[], sort: keyof SortOptions): IPost[] => {
   const sortedPosts = useMemo(() => {
     if (sort) {
       return sort === 'id'
@@ -17,7 +16,7 @@ export const userSortedPosts = (posts: Post[], sort: keyof SortOptions): Post[] 
   return sortedPosts
 }
 
-export const usePosts = (posts: Post[], sort: keyof SortOptions, query: string): Post[] => {
+export const usePosts = (posts: IPost[], sort: keyof SortOptions, query: string): IPost[] => {
   const sortedPosts = userSortedPosts(posts, sort)
 
   const sortedAndSearchedPosts = useMemo(() => {
