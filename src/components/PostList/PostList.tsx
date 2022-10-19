@@ -1,5 +1,5 @@
 import './PostList.css'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { CSSTransition, SwitchTransition, TransitionGroup } from 'react-transition-group'
 import { IPost } from '../../types/types'
 import PostItem from '../PostItem/PostItem'
